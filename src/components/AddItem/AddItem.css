@@ -1,0 +1,30 @@
+.addItem__wrap {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.addItem__input {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px 15px;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    height: 40px;
+    border-radius: 4px 0 0 4px;
+}
+
+.addItem__btn {
+    height: 40px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 0 4px 4px 0;
+}
+
+.item__title_done {
+    text-decoration: line-through;
+    color: grey;
+}
