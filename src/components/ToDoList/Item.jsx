@@ -1,4 +1,4 @@
-import "./Item.css";
+import "./item.css";
 
 export const Item = ({ id, title, done, onEditItem, onRemoveItem }) => {
     return (

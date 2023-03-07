@@ -6,6 +6,14 @@ import { list } from "./utils";
 
 import "./App.css";
 
+const Title = ()=>{
+    return (
+        <div className="title-main">
+            <h1>To Do List Demo App</h1>
+            <h2>Do it today</h2>
+        </div>
+    )
+}
 const App = () => {
     // стейт для списка
     const [state, setState] = useState(list);
@@ -28,6 +36,7 @@ const App = () => {
 
     return (
         <div className="App">
+            <Title/>
             <AddItem onAdd={addToState} />
             <List data={state} onRemoveItem={onRemoveItem} onEditItem={onEditItem} />
         </div>

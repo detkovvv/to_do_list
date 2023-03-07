@@ -24,3 +24,13 @@
   padding: 2rem;
   text-align: center;
 }
+.title-main h1{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.title-main h2{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
