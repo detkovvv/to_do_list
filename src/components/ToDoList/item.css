@@ -1,11 +1,12 @@
 .item__title {
     flex: 1;
     text-align: left;
-    max-width: 200px;
+    max-width: 780px;
 }
 
 .item__wrap {
     display: flex;
+    justify-content: space-between;
     margin-bottom: 4px;
 }
 
@@ -20,4 +21,14 @@
     background: rgba(0,0,0,0);
     color: #3a7999;
     box-shadow: inset 0 0 0 3px #3a7999;
+}
+.headlines{
+    display: flex;
+    justify-content: space-between;
+    color: #3a7999;
+    -webkit-text-stroke: 1px #333333;
+    font-size: 22px;
+}
+.headlines-task_name{
+    flex-basis: 70%;
 }

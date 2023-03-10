@@ -19,7 +19,6 @@ const App = () => {
     const [state, setState] = useState(list);
 
     const onRemoveItem = (id) => () => {
-        console.log(id);
         setState(state.filter((item) => item.id !== id));
     };
 
@@ -33,12 +32,14 @@ const App = () => {
             })
         );
     };
+    const onTexEditItem = ()=>{
 
+    }
     return (
         <div className="App">
             <Title/>
             <AddItem onAdd={addToState} />
-            <List data={state} onRemoveItem={onRemoveItem} onEditItem={onEditItem} />
+            <List data={state} onRemoveItem={onRemoveItem} onEditItem={onEditItem} onTextEditItem={onTexEditItem()}/>
         </div>
     );
 };

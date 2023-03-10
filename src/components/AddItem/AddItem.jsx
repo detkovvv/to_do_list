@@ -15,7 +15,7 @@ export const AddItem = ({ onAdd }) => {
         // если значение уже существует
         // TODO
 
-        onAdd({ title: inputValue, done: false, id: getId() });
+        onAdd({ title: inputValue, completed: false, id: getId() });
         setInputValue("");
     };
 

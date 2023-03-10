@@ -19,18 +19,9 @@
 }
 
 #root {
-  max-width: 1280px;
+
+  max-width: 780px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-.title-main h1{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.title-main h2{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
