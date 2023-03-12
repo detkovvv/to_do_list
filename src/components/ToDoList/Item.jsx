@@ -5,13 +5,13 @@ import {useState} from "react";
 
 export const Item = ({id, title, completed, onEditItem, onRemoveItem, itemNumber}) => {
     const [isEdit, setIsEdit] = useState(true);
-    const editTask = ()=> {
-        onEditItem(id, text)();
+    const onEditTask = ()=> {
+        onEditItem(id, {title: text})();
         setIsEdit(!isEdit)
     };
-    // стейт под инпут
+    // стейт для инпут
     const [text, setText] = useState(title);
-    const editText = (e) =>{
+    const onEditText = (e) =>{
         setText(e.target.value);
     }
 
@@ -20,10 +20,10 @@ export const Item = ({id, title, completed, onEditItem, onRemoveItem, itemNumber
             <span className="item-number">{itemNumber}.</span>
             {isEdit ?  <span className={completed ? "item__title_done item__title" : "item__title"}>
             {title}
-             </span> : <input className="item__title-edit" value={text} onChange={editText}/>}
+             </span> : <input className="item__title-edit" value={text} onChange={onEditText}/>}
 
             <div className="item-edit">
-                <button className="item-edit_button" onClick={editTask}>
+                <button className="item-edit_button" onClick={onEditTask}>
                     {isEdit ? "edit" : "save"}
                 </button>
             </div>

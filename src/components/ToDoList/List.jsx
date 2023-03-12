@@ -10,6 +10,7 @@ export const List = ({ data, onEditItem, onRemoveItem }) => {
 
     return (
         <div>
+            {/*Шапка*/}
             <div className="headlines item__wrap">
                 <span className="headlines-number item-number">#</span>
                 <span className="headlines-task_name item__title">Task Name</span>

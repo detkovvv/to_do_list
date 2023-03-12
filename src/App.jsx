@@ -30,9 +30,8 @@ const App = () => {
         setState(
             state.map((item) => {
                 if (item.id === id)
-                {item.title = newProps;
-                    return {...item, ...newProps};}
-                return item;
+                    return {...item, ...newProps};
+                    return item;
             })
         );
     };
