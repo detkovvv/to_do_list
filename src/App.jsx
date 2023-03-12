@@ -1,22 +1,23 @@
-import { useState } from "react";
+import {useState, useEffect} from "react";
 
-import { AddItem } from "./components/AddItem/AddItem";
-import { List } from "./components/ToDoList";
-import { list } from "./utils";
+import {AddItem} from "./components/AddItem/AddItem";
+import {List} from "./components/ToDoList";
+import {Title} from "./components/Title/Title";
 
 import "./App.css";
 
-const Title = ()=>{
-    return (
-        <div className="title-main">
-            <h1>To Do List Demo App</h1>
-            <h2>Do it today</h2>
-        </div>
-    )
-}
+// TODO: Добавить LocalStorage
+
 const App = () => {
     // стейт для списка
-    const [state, setState] = useState(list);
+    const [state, setState] = useState([]);
+
+    useEffect(() => {
+        // if есть что-то в localStorage {}, если нет то fetch
+        fetch('https://jsonplaceholder.typicode.com/todos')
+            .then(response => response.json())
+            .then(json => setState(json))
+    }, [])
 
     const onRemoveItem = (id) => () => {
         setState(state.filter((item) => item.id !== id));
@@ -25,21 +26,22 @@ const App = () => {
     const addToState = (item) => setState([...state, item]);
 
     const onEditItem = (id, newProps) => () => {
+        console.log(id, newProps)
         setState(
             state.map((item) => {
-                if (item.id === id) return { ...item, ...newProps };
+                if (item.id === id)
+                {item.title = newProps;
+                    return {...item, ...newProps};}
                 return item;
             })
         );
     };
-    const onTexEditItem = ()=>{
 
-    }
     return (
         <div className="App">
             <Title/>
-            <AddItem onAdd={addToState} />
-            <List data={state} onRemoveItem={onRemoveItem} onEditItem={onEditItem} onTextEditItem={onTexEditItem()}/>
+            <AddItem onAdd={addToState}/>
+            <List data={state} onRemoveItem={onRemoveItem} onEditItem={onEditItem} onAdd={addToState}/>
         </div>
     );
 };

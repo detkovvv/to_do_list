@@ -1,16 +1,30 @@
 import "./item.css";
+import {useState} from "react";
 
+//  TODO: добавить кнопку удалить все таски
 
-export const Item = ({id, title, completed, onEditItem, onTextEditItem, onRemoveItem, itemNumber}) => {
+export const Item = ({id, title, completed, onEditItem, onRemoveItem, itemNumber}) => {
+    const [isEdit, setIsEdit] = useState(true);
+    const editTask = ()=> {
+        onEditItem(id, text)();
+        setIsEdit(!isEdit)
+    };
+    // стейт под инпут
+    const [text, setText] = useState(title);
+    const editText = (e) =>{
+        setText(e.target.value);
+    }
+
     return (
         <div className="item__wrap">
-            <span className="item-number">{itemNumber(id)}.</span>
-            <span className={completed ? "item__title_done item__title" : "item__title"}>
+            <span className="item-number">{itemNumber}.</span>
+            {isEdit ?  <span className={completed ? "item__title_done item__title" : "item__title"}>
             {title}
-             </span>
+             </span> : <input className="item__title-edit" value={text} onChange={editText}/>}
+
             <div className="item-edit">
-                <button className="item-edit_button" onClick={onTextEditItem}>
-                    edit
+                <button className="item-edit_button" onClick={editTask}>
+                    {isEdit ? "edit" : "save"}
                 </button>
             </div>
             <div className="item-status">
