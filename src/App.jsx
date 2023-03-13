@@ -4,6 +4,7 @@ import {AddItem} from "./components/AddItem/AddItem";
 import {List} from "./components/ToDoList";
 import {Title} from "./components/Title/Title";
 
+
 import "./App.css";
 
 // TODO: Добавить LocalStorage
@@ -18,7 +19,9 @@ const App = () => {
             .then(response => response.json())
             .then(json => setState(json))
     }, [])
-
+    const onClearAll = ()=>{
+        setState([]);
+    };
     const onRemoveItem = (id) => () => {
         setState(state.filter((item) => item.id !== id));
     };
@@ -40,7 +43,7 @@ const App = () => {
         <div className="App">
             <Title/>
             <AddItem onAdd={addToState}/>
-            <List data={state} onRemoveItem={onRemoveItem} onEditItem={onEditItem} onAdd={addToState}/>
+            <List data={state} onClearAll={onClearAll} onRemoveItem={onRemoveItem} onEditItem={onEditItem} onAdd={addToState}/>
         </div>
     );
 };

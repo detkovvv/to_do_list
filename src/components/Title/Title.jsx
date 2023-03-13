@@ -1,4 +1,5 @@
 import "./Title.css";
+
 export const Title = () => {
     return (
         <div className="title-main">
@@ -7,4 +8,3 @@ export const Title = () => {
         </div>
     )
 }
-

@@ -1,7 +1,7 @@
 import { Item } from "./Item";
 
 
-export const List = ({ data, onEditItem, onRemoveItem }) => {
+export const List = ({ data, onEditItem, onRemoveItem, onClearAll}) => {
     // // фильтруем список по степени готовности
     const done = data.filter(({ completed }) => completed);
 
@@ -10,6 +10,12 @@ export const List = ({ data, onEditItem, onRemoveItem }) => {
 
     return (
         <div>
+            {/*кнопка очистить список*/}
+            <div className="clear-button">
+                <button className="item__button" onClick={onClearAll}>
+                    clear all
+                </button>
+            </div>
             {/*Шапка*/}
             <div className="headlines item__wrap">
                 <span className="headlines-number item-number">#</span>

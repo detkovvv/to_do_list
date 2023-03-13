@@ -1,12 +1,12 @@
 import "./item.css";
 import {useState} from "react";
 
-//  TODO: добавить кнопку удалить все таски
+//  TODO:
 
 export const Item = ({id, title, completed, onEditItem, onRemoveItem, itemNumber}) => {
     const [isEdit, setIsEdit] = useState(true);
     const onEditTask = ()=> {
-        onEditItem(id, {title: text})();
+        onEditItem(id, {title: text});
         setIsEdit(!isEdit)
     };
     // стейт для инпут

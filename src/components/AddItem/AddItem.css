@@ -16,7 +16,7 @@
     line-height: 1;
     height: 40px;
     border-radius: 4px 0 0 4px;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .addItem__btn {
