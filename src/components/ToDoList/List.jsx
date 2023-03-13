@@ -1,19 +1,29 @@
 import { Item } from "./Item";
 
+
 export const List = ({ data, onEditItem, onRemoveItem }) => {
     // // фильтруем список по степени готовности
-    const done = data.filter(({ done }) => done);
+    const done = data.filter(({ completed }) => completed);
 
     // // показываем выполненные всегда в конце
-    const undone = data.filter(({ done }) => !done);
+    const undone = data.filter(({ completed }) => !completed);
 
     return (
-        <>
-            {undone.map((item) => (
+        <div>
+            {/*Шапка*/}
+            <div className="headlines item__wrap">
+                <span className="headlines-number item-number">#</span>
+                <span className="headlines-task_name item__title">Task Name</span>
+                <span className="headlines-edit item-edit">Edit</span>
+                <span className="headlines-task_status item-status">Status</span>
+                <span className="headlines-remove item-remove">Remove</span>
+            </div>
+            {undone.map((item, index) => (
                 <Item
                     {...item}
                     key={item.id}
                     onEditItem={onEditItem}
+                    itemNumber={index+1}
                     onRemoveItem={onRemoveItem}
                 />
             ))}
@@ -25,6 +35,6 @@ export const List = ({ data, onEditItem, onRemoveItem }) => {
                     onRemoveItem={onRemoveItem}
                 />
             ))}
-        </>
+        </div>
     );
 };

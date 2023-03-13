@@ -1,17 +1,43 @@
-.item__title {
-    flex: 1;
-    text-align: left;
-    max-width: 200px;
-}
-
 .item__wrap {
     display: flex;
     margin-bottom: 4px;
 }
-
+.item-number {
+   width: 30px;
+}
+.item__title {
+    text-align: left;
+    width: 600px;
+}
+.item__title-edit{
+    text-align: left;
+    width: 600px;
+}
+.item-edit{
+    width: 70px
+}
+.item-status{
+    width: 60px;
+}
+.item-remove{
+    width: 60px;
+}
 .item__button {
     background: none;
     outline: none;
     border: none;
     color: white;
+}
+
+.item__button:hover{
+    background: rgba(0,0,0,0);
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
+}
+.headlines{
+    color: #3a7999;
+    -webkit-text-stroke: 1px #333333;
+    font-size: 20px;
+}
+.headlines-task_name{
 }

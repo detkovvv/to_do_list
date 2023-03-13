@@ -3,11 +3,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+
 }
 
 .addItem__input {
     width: 100%;
-    max-width: 200px;
+    max-width: 780px;
     padding: 10px 15px;
     outline: none;
     border: none;
@@ -15,6 +16,7 @@
     line-height: 1;
     height: 40px;
     border-radius: 4px 0 0 4px;
+    box-sizing: border-box;
 }
 
 .addItem__btn {
@@ -22,6 +24,11 @@
     padding: 0 20px;
     border: none;
     border-radius: 0 4px 4px 0;
+}
+.addItem__btn:hover{
+    background: rgba(0,0,0,0);
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px #3a7999;
 }
 
 .item__title_done {
