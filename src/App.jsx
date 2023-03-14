@@ -11,22 +11,31 @@ import "./App.css";
 
 const App = () => {
     // стейт для списка
-    const [state, setState] = useState([]);
+    const [state, setState] = useState(
+        JSON.parse(localStorage.getItem('state')) || []
+    );
 
     useEffect(() => {
-        // if есть что-то в localStorage {}, если нет то fetch
-        fetch('https://jsonplaceholder.typicode.com/todos')
-            .then(response => response.json())
-            .then(json => setState(json))
-    }, [])
-    const onClearAll = ()=>{
+        console.log(localStorage.state);
+        localStorage.state === [] ? fetch('https://jsonplaceholder.typicode.com/todos')
+                .then(response => response.json())
+                .then(json => setState(json)) : localStorage.setItem('state', JSON.stringify(state))
+    }, []);
+
+    const onClearAll = () => {
+        localStorage.clear();
         setState([]);
     };
     const onRemoveItem = (id) => () => {
+        console.log(id)
+        localStorage.removeItem(id);
         setState(state.filter((item) => item.id !== id));
     };
 
-    const addToState = (item) => setState([...state, item]);
+    const addToState = (item) => {
+        setState([...state, item]);
+        localStorage.setItem('state', JSON.stringify([...state, item]));
+    }
 
     const onEditItem = (id, newProps) => () => {
         console.log(id, newProps)
@@ -34,7 +43,7 @@ const App = () => {
             state.map((item) => {
                 if (item.id === id)
                     return {...item, ...newProps};
-                    return item;
+                return item;
             })
         );
     };
@@ -43,7 +52,8 @@ const App = () => {
         <div className="App">
             <Title/>
             <AddItem onAdd={addToState}/>
-            <List data={state} onClearAll={onClearAll} onRemoveItem={onRemoveItem} onEditItem={onEditItem} onAdd={addToState}/>
+            <List data={state} onClearAll={onClearAll} onRemoveItem={onRemoveItem} onEditItem={onEditItem}
+                  onAdd={addToState}/>
         </div>
     );
 };
