@@ -7,7 +7,7 @@ import {Title} from "./components/Title/Title";
 
 import "./App.css";
 
-// TODO: Добавить LocalStorage
+// TODO: Добавить LocalStorage(доработать)
 
 const App = () => {
     // стейт для списка
