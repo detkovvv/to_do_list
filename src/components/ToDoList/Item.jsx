@@ -5,8 +5,8 @@ import {useState} from "react";
 
 export const Item = ({id, title, completed, onEditItem, onRemoveItem, itemNumber}) => {
     const [isEdit, setIsEdit] = useState(true);
-    const onEditTask = ()=> {
-        onEditItem(id, {title: text});
+    const onEditTask = ()=>{
+        onEditItem(id, {title: text})();
         setIsEdit(!isEdit)
     };
     // стейт для инпут

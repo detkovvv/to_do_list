@@ -7,39 +7,43 @@ import {Title} from "./components/Title/Title";
 
 import "./App.css";
 
-// TODO: Добавить LocalStorage(доработать)
+// TODO:
 
 const App = () => {
     // стейт для списка
-    const [state, setState] = useState(
-        JSON.parse(localStorage.getItem('state')) || []
-    );
+    const [state, setState] = useState([]);
+
+    const setNewState = (newState) => {
+        setState(newState);
+        localStorage.setItem('state', JSON.stringify(newState))
+    }
 
     useEffect(() => {
-        console.log(localStorage.state);
-        localStorage.state === [] ? fetch('https://jsonplaceholder.typicode.com/todos')
+        const localStorageItem = JSON.parse(localStorage.getItem('state', JSON.stringify(state)));
+        // console.log(Array.isArray(localStorageItem), localStorageItem);
+
+        localStorageItem ? setState(localStorageItem)
+            : fetch('https://jsonplaceholder.typicode.com/todos')
                 .then(response => response.json())
-                .then(json => setState(json)) : localStorage.setItem('state', JSON.stringify(state))
+                .then(json => setNewState(json))
     }, []);
 
     const onClearAll = () => {
-        localStorage.clear();
-        setState([]);
+        setNewState([]);
     };
     const onRemoveItem = (id) => () => {
-        console.log(id)
-        localStorage.removeItem(id);
-        setState(state.filter((item) => item.id !== id));
+        setNewState(state.filter((item) => item.id !== id));
+
     };
 
     const addToState = (item) => {
-        setState([...state, item]);
-        localStorage.setItem('state', JSON.stringify([...state, item]));
+        setNewState([...state, item]);
+
     }
 
     const onEditItem = (id, newProps) => () => {
-        console.log(id, newProps)
-        setState(
+        // console.log(id, newProps)
+        setNewState(
             state.map((item) => {
                 if (item.id === id)
                     return {...item, ...newProps};

@@ -3,6 +3,7 @@ import { Item } from "./Item";
 
 export const List = ({ data, onEditItem, onRemoveItem, onClearAll}) => {
     // // фильтруем список по степени готовности
+    // console.log(data);
     const done = data.filter(({ completed }) => completed);
 
     // // показываем выполненные всегда в конце
