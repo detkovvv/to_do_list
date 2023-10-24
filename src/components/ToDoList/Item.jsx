@@ -26,7 +26,7 @@ export const Item = ({ id, title, completed, onEditItem, onRemoveItem, itemNumbe
 
       <div className='item-edit'>
         <button className='item-edit_button' onClick={onEditTask}>
-          {isEdit ? 'edit' : 'save'}
+          {isEdit ? 'edit' : 'v'}
         </button>
       </div>
       <div className='item-status'>
