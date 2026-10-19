@@ -1,10 +1,9 @@
-import "./Title.css";
+import './Title.css'
 
-export const Title = () => {
-    return (
-        <div className="title-main">
-            <h1>To Do List Demo App</h1>
-            <h2>Do it today</h2>
-        </div>
-    )
-}
+export const Title = () => (
+  <header className='page-heading'>
+    <p className='page-heading__eyebrow'>Демонстрационный проект</p>
+    <h1>Список задач</h1>
+    <p>Планируйте дела, отмечайте выполненное и сохраняйте изменения прямо в браузере.</p>
+  </header>
+)

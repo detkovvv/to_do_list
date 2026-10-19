@@ -1,41 +1,47 @@
+import { useState } from 'react'
+
 import { Item } from './Item'
 
-export const List = ({ data, onEditItem, onRemoveItem, onClearAll }) => {
-  // // фильтруем список по степени готовности
-  // console.log(data);
-  const done = data.filter(({ completed }) => completed)
+const filters = [
+  { id: 'all', label: 'Все' },
+  { id: 'active', label: 'В работе' },
+  { id: 'done', label: 'Готово' },
+]
 
-  // // показываем выполненные всегда в конце
-  const undone = data.filter(({ completed }) => !completed)
+export const List = ({ data, onEditItem, onRemoveItem, onClearAll }) => {
+  const [filter, setFilter] = useState('all')
+  const completedCount = data.filter((task) => task.completed).length
+  const visible = data.filter((task) =>
+    filter === 'all' || (filter === 'done' ? task.completed : !task.completed),
+  )
 
   return (
-    <div>
-      {/* кнопка очистить список*/}
-      <div className='clear-button'>
-        <button className='item__button' onClick={onClearAll}>
-          clear all
-        </button>
+    <div className='task-list'>
+      <div className='task-list__header'>
+        <div>
+          <h2>Мои задачи</h2>
+          <p>{data.length - completedCount} в работе · {completedCount} выполнено</p>
+        </div>
+        <button className='button-quiet button-danger' disabled={!data.length} onClick={onClearAll} type='button'>Очистить список</button>
       </div>
-      {/* Шапка*/}
-      <div className='headlines item__wrap'>
-        <span className='headlines-number item-number'>#</span>
-        <span className='headlines-task_name item__title'>Task Name</span>
-        <span className='headlines-edit item-edit'>Edit</span>
-        <span className='headlines-task_status item-status'>Status</span>
-        <span className='headlines-remove item-remove'>Remove</span>
+      <div aria-label='Фильтр задач' className='task-filters' role='group'>
+        {filters.map(({ id, label }) => (
+          <button aria-pressed={filter === id} className={filter === id ? 'is-active' : ''} key={id} onClick={() => setFilter(id)} type='button'>
+            {label}
+          </button>
+        ))}
       </div>
-      {undone.map((item, index) => (
-        <Item
-          {...item}
-          key={item.id}
-          onEditItem={onEditItem}
-          itemNumber={index + 1}
-          onRemoveItem={onRemoveItem}
-        />
-      ))}
-      {done.map((item) => (
-        <Item {...item} key={item.id} onEditItem={onEditItem} onRemoveItem={onRemoveItem} />
-      ))}
+      {visible.length ? (
+        <ul className='task-items'>
+          {visible.map((task) => (
+            <Item key={task.id} onEditItem={onEditItem} onRemoveItem={onRemoveItem} {...task} />
+          ))}
+        </ul>
+      ) : (
+        <p className='task-empty'>
+          {data.length ? 'В этой категории пока нет задач.' : 'Пока нет задач. Добавьте первую выше.'}
+        </p>
+      )}
     </div>
   )
 }

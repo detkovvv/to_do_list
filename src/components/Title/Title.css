@@ -1,10 +1,4 @@
-.title-main h1{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-.title-main h2{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
+.page-heading { margin-bottom: 27px; }
+.page-heading__eyebrow { margin: 0 0 12px; color: #526e88; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.page-heading h1 { margin: 0 0 8px; font-size: clamp(32px, 5vw, 44px); line-height: 1.15; }
+.page-heading > p:last-child { margin: 0; color: #617286; line-height: 1.5; }

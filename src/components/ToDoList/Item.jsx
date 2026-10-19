@@ -1,46 +1,55 @@
-import './item.css'
 import { useState } from 'react'
 
-//  TODO:
+import './item.css'
 
-export const Item = ({ id, title, completed, onEditItem, onRemoveItem, itemNumber }) => {
-  const [isEdit, setIsEdit] = useState(true)
-  const onEditTask = () => {
-    onEditItem(id, { title: text })()
-    setIsEdit(!isEdit)
+export const Item = ({ id, title, completed, onEditItem, onRemoveItem }) => {
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState(title)
+
+  const save = () => {
+    const nextTitle = draft.trim()
+    if (!nextTitle) return
+    onEditItem(id, { title: nextTitle })
+    setEditing(false)
   }
-  // стейт для инпут
-  const [text, setText] = useState(title)
-  const onEditText = (e) => {
-    setText(e.target.value)
+
+  const cancel = () => {
+    setDraft(title)
+    setEditing(false)
   }
 
   return (
-    <div className='item__wrap'>
-      <span className='item-number'>{itemNumber}.</span>
-      {isEdit ? (
-        <span className={completed ? 'item__title_done item__title' : 'item__title'}>{title}</span>
+    <li className={`task-item${completed ? ' task-item--done' : ''}`}>
+      <input
+        aria-label={`Завершить: ${title}`}
+        checked={completed}
+        className='task-item__checkbox'
+        onChange={() => onEditItem(id, { completed: !completed })}
+        type='checkbox'
+      />
+      {editing ? (
+        <form className='task-item__edit' onSubmit={(event) => { event.preventDefault(); save() }}>
+          <input
+            aria-label='Название задачи'
+            autoFocus
+            maxLength={160}
+            onChange={(event) => setDraft(event.target.value)}
+            onKeyDown={(event) => { if (event.key === 'Escape') cancel() }}
+            required
+            value={draft}
+          />
+          <button className='button-quiet' type='submit'>Сохранить</button>
+          <button className='button-quiet' onClick={cancel} type='button'>Отмена</button>
+        </form>
       ) : (
-        <input className='item__title-edit' value={text} onChange={onEditText} />
+        <>
+          <span className='task-item__title'>{title}</span>
+          <div className='task-item__actions'>
+            <button aria-label={`Изменить: ${title}`} className='button-quiet' onClick={() => { setDraft(title); setEditing(true) }} type='button'>Изменить</button>
+            <button aria-label={`Удалить: ${title}`} className='button-quiet button-danger' onClick={() => onRemoveItem(id)} type='button'>Удалить</button>
+          </div>
+        </>
       )}
-
-      <div className='item-edit'>
-        <button className='item-edit_button' onClick={onEditTask}>
-          {isEdit ? 'edit' : 'v'}
-        </button>
-      </div>
-      <div className='item-status'>
-        <input
-          checked={completed}
-          type='checkbox'
-          onChange={onEditItem(id, { completed: !completed })}
-        />
-      </div>
-      <div className='item-remove'>
-        <button className='item__button' onClick={onRemoveItem(id)}>
-          X
-        </button>
-      </div>
-    </div>
+    </li>
   )
 }

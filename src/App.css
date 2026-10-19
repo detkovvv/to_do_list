@@ -1,26 +1,21 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #759ede;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-*, *::after, *::before {
-  box-sizing: border-box;
-}
-
-#root {
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.app-shell { width: min(100% - 40px, 1000px); margin: 0 auto; padding: 56px 0 80px; }
+.task-card { overflow: hidden; border: 1px solid #dce4ec; border-radius: 14px; background: #fff; box-shadow: 0 8px 24px rgb(34 58 88 / 5%); }
+.task-list { padding: 26px 28px 30px; }
+.task-list__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.task-list__header h2 { margin: 0 0 5px; font-size: 23px; }
+.task-list__header p { margin: 0; color: #647487; font-size: 14px; }
+.button-quiet { min-height: 40px; padding: 8px 12px; border: 1px solid #d5e0e9; border-radius: 8px; background: white; color: #425f7a; font-size: 14px; font-weight: 600; transition: background .2s, border-color .2s; }
+.button-quiet:hover:not(:disabled) { border-color: #9ab5cc; background: #eef4f8; }
+.button-danger { color: #a14b4b; }
+.button-danger:hover:not(:disabled) { border-color: #d9a6a6; background: #fff3f3; }
+.task-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 25px 0 17px; }
+.task-filters button { min-height: 38px; padding: 7px 15px; border: 1px solid #dce4ec; border-radius: 20px; background: white; color: #52677e; font-size: 14px; }
+.task-filters button:hover { background: #eef4f8; }
+.task-filters button.is-active { border-color: #466582; background: #466582; color: white; }
+.task-items { overflow: hidden; margin: 0; padding: 0; border: 1px solid #dce4ec; border-radius: 9px; list-style: none; }
+.task-empty { margin: 0; padding: 35px 20px; border: 1px dashed #cbd8e3; border-radius: 9px; color: #647487; text-align: center; }
+@media (max-width: 600px) {
+  .app-shell { width: min(100% - 24px, 1000px); padding: 30px 0 50px; }
+  .task-list { padding: 20px 16px; }
+  .task-list__header { align-items: flex-start; flex-direction: column; gap: 14px; }
 }

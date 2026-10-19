@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AddItem } from './components/AddItem/AddItem'
 import { List } from './components/ToDoList'
@@ -6,61 +6,62 @@ import { Title } from './components/Title/Title'
 
 import './App.css'
 
-// TODO:
+const STORAGE_KEY = 'todo-app:tasks'
+const starterTasks = [
+  { id: 'demo-1', title: 'Спланировать задачи на неделю', completed: true },
+  { id: 'demo-2', title: 'Подготовить макеты проекта', completed: false },
+  { id: 'demo-3', title: 'Проверить мобильную версию', completed: false },
+  { id: 'demo-4', title: 'Отправить обновления команде', completed: false },
+]
+
+const isTask = (task) =>
+  task && (typeof task.id === 'string' || typeof task.id === 'number') &&
+  typeof task.title === 'string' &&
+  typeof task.completed === 'boolean'
+
+const readTasks = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem('state')
+    if (!stored) return starterTasks
+    const parsed = JSON.parse(stored)
+    return Array.isArray(parsed) ? parsed.filter(isTask) : starterTasks
+  } catch {
+    return starterTasks
+  }
+}
 
 const App = () => {
-  // стейт для списка
-  const [state, setState] = useState([])
-
-  const setNewState = (newState) => {
-    setState(newState)
-    localStorage.setItem('state', JSON.stringify(newState))
-  }
+  const [tasks, setTasks] = useState(readTasks)
 
   useEffect(() => {
-    const localStorageItem = JSON.parse(localStorage.getItem('state', JSON.stringify(state)))
-    // console.log(Array.isArray(localStorageItem), localStorageItem);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
+  }, [tasks])
 
-    localStorageItem
-      ? setState(localStorageItem)
-      : fetch('https://jsonplaceholder.typicode.com/todos')
-          .then((response) => response.json())
-          .then((json) => setNewState(json))
-  }, [])
-
-  const onClearAll = () => {
-    setNewState([])
-  }
-  const onRemoveItem = (id) => () => {
-    setNewState(state.filter((item) => item.id !== id))
+  const addTask = (title) => {
+    setTasks((current) => [...current, { id: crypto.randomUUID(), title, completed: false }])
   }
 
-  const addToState = (item) => {
-    setNewState([...state, item])
+  const updateTask = (id, changes) => {
+    setTasks((current) => current.map((task) => task.id === id ? { ...task, ...changes } : task))
   }
 
-  const onEditItem = (id, newProps) => () => {
-    // console.log(id, newProps)
-    setNewState(
-      state.map((item) => {
-        if (item.id === id) return { ...item, ...newProps }
-        return item
-      }),
-    )
+  const removeTask = (id) => {
+    setTasks((current) => current.filter((task) => task.id !== id))
   }
 
   return (
-    <div className='App'>
+    <main className='app-shell'>
       <Title />
-      <AddItem onAdd={addToState} />
-      <List
-        data={state}
-        onClearAll={onClearAll}
-        onRemoveItem={onRemoveItem}
-        onEditItem={onEditItem}
-        onAdd={addToState}
-      />
-    </div>
+      <section aria-label='Список задач' className='task-card'>
+        <AddItem onAdd={addTask} />
+        <List
+          data={tasks}
+          onClearAll={() => setTasks([])}
+          onEditItem={updateTask}
+          onRemoveItem={removeTask}
+        />
+      </section>
+    </main>
   )
 }
 

@@ -1,30 +1,33 @@
 import { useState } from 'react'
-import { getId } from '../../utils'
 
 import './AddItem.css'
 
 export const AddItem = ({ onAdd }) => {
-  const [inputValue, setInputValue] = useState('')
+  const [value, setValue] = useState('')
 
-  const handleChangeInput = (e) => setInputValue(e.target.value)
-
-  const handleAdd = () => {
-    // если инпут пуст
-    if (!inputValue) return
-
-    // если значение уже существует
-    // TODO
-
-    onAdd({ title: inputValue, completed: false, id: getId() })
-    setInputValue('')
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const title = value.trim()
+    if (!title) return
+    onAdd(title)
+    setValue('')
   }
 
   return (
-    <div className='addItem__wrap'>
-      <input className='addItem__input' value={inputValue} onChange={handleChangeInput} />
-      <button className='addItem__btn' onClick={handleAdd}>
-        add
-      </button>
-    </div>
+    <form className='add-task' onSubmit={handleSubmit}>
+      <label htmlFor='new-task'>Новая задача</label>
+      <div className='add-task__controls'>
+        <input
+          autoComplete='off'
+          id='new-task'
+          maxLength={160}
+          onChange={(event) => setValue(event.target.value)}
+          placeholder='Например, проверить дизайн на телефоне'
+          required
+          value={value}
+        />
+        <button type='submit'>Добавить</button>
+      </div>
+    </form>
   )
 }
